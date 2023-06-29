@@ -35,3 +35,13 @@ out/
 
 ### VS Code ###
 .vscode/
+**/src/main/resources/static/files/**
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+!/.gitignore
