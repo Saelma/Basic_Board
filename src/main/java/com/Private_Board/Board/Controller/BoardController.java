@@ -68,7 +68,7 @@ public class BoardController {
         String boardpath = boardTemp.getFilepath();
         System.out.println(boardpath);
         try{
-            String projectPath = System.getProperty("user.dir") + "/src/main/resources/static" + boardpath; // 저장경로 지정
+            String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/" + boardpath; // 저장경로 지정
 
             File file = new File(projectPath);
             response.setHeader("Content-Disposition", "attachment;filename=" + file.getName()); // 파일 다운로드
