@@ -31,12 +31,17 @@
 </table>
   <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
     <a th:if="${page != nowPage}"
-       th:href="@{/board/list(page = ${page-1})}"
+       th:href="@{/board/list(page = ${page-1}, searchKeyword = ${param.searchKeyword})}"
        th:text="${page}"></a>
+    <!-- searchKeyword = ${param.serachKeyword}를 넣음으로써 다음 페이지를 눌러도 검색을 유지하며 이동함  -->
     <strong th:if="${page == nowPage}"
             th:text="${page}" style="color : red"></strong>
     <!-- 현 페이지와 누르려는 페이지가 같으면 href 작동이 안 되게 하는 if문-->
   </th:block>
+  <form th:action="@{/board/list}" method="get" >
+    <input type="text" name="searchKeyword">
+    <button type="submit">검색</button>
+  </form>
   <!-- th:block은 굳이 tag로 감쌀 필요가 없는 태그를 th문법을 사용해 나타낼 때 사용 -->
 </div>
 

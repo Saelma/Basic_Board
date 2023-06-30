@@ -42,12 +42,21 @@ public class BoardController {
     @GetMapping("/board/list")
     public String boardlist(Model model,
                             @PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.DESC)
-                            Pageable pageable) {
-        Page<Board> list = boardService.boardList(pageable);
+                            Pageable pageable, String searchKeyword) {
+        // 데이터를 담아 페이지로 보내기 위해 Model 자료형을 인자로 함
+        // 검색할 때 (searchKeyword) 가 있는지 구분하며 사용
 
-        int nowPage = list.getPageable().getPageNumber() + 1;
+        Page<Board> list = null;
+
+        if(searchKeyword != null){
+            list = boardService.boardSearchList(searchKeyword, pageable);
+        } else {
+            list = boardService.boardList(pageable);
+        }
+
+        int nowPage = list.getPageable().getPageNumber() + 1; // 현재 페이지를 가져옴, 0에서 시작하는 처리를 위해 + 1
         int startPage = Math.max(nowPage -4, 1);
-        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+        int endPage = Math.min(nowPage + 5, list.getTotalPages()); // totalPage보다 크면 안 되기에 두개중 최소값 반환
 
 
         model.addAttribute("list",list);
