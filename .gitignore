@@ -44,4 +44,5 @@ out/
 *.iml
 out
 gen
-!/.gitignore
+.gradle
+build

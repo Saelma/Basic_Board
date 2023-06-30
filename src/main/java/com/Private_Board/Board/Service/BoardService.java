@@ -3,6 +3,8 @@ package com.Private_Board.Board.Service;
 import com.Private_Board.Board.entity.Board;
 import com.Private_Board.Board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,9 +36,11 @@ public class BoardService{
         boardRepository.save(board);
     }
 
-    public List<Board> boardList(){
-        return boardRepository.findAll();
+    public Page<Board> boardList(Pageable pageable){
+        return boardRepository.findAll(pageable);
     }
+    //Board라는 class가 담긴 list를 찾아 반환, 매개변수가 없으면 public list여도 매개변수를 pagealbe로 주면 public pageable로 바뀜
+
 
     public Board boardview(Integer id){
         return boardRepository.findById(id).get();
