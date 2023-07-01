@@ -3,14 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <title>게시글 상세 페이지</title>
+  <link rel="stylesheet" href="/css/boardlist.css" />
 </head>
 <body>
+
+<header>
+  <section class="hbody">
+    <article class="nav">
+      <div class="title"><a th:href="@{/board/list}">BRAND</a></div>
+      <ul id="menu">
+        <li><a th:href="@{/board/list}">Home</a></li>
+        <li><a class="content" th:href="@{/board/list}">작성된 글 리스트</a></li>
+        <li><a th:href="@{/board/write}">글 작성 </a></li>
+      </ul>
+      <i class="fab fa-twitter-square"></i>
+      <i class="fas fa-bars"></i>
+    </article>
+  </section>
+</header>
+
+<div class="layout">
 <h1 th:text="${board.title}">제목</h1>
+  <p th:text="${board.author}">작성자</p>
 <p th:text="${board.content}">내용</p>
 <!--<a th:href="@{${board.filepath}}">다운받기</a>-->
 <a th:href="@{/board/download/{id}(id = ${board.id})}">다운받기</a>
 <a th:href="@{/board/delete(id=${board.id})}">글 삭제</a>
 <a th:href="@{/board/modify/{id}(id = ${board.id})}">글 수정</a>
-
+</div>
 </body>
 </html>

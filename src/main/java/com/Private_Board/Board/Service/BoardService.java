@@ -33,6 +33,7 @@ public class BoardService{
         board.setFilename(filename);
         board.setFilepath("files/" + filename);
 
+        // 여기까지 파일 저장 코드
         boardRepository.save(board);
     }
 

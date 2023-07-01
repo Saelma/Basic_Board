@@ -1,32 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <title>게시글 리스트 페이지</title>
+  <link rel="stylesheet" href="/css/boardlist.css" />
 </head>
-<style>
-    .layout{
-        width : 500px;
-        margin : 0 auto;
-        margin-top : 40px;
-    }
-</style>
 <body>
+
+
+<!--<div class="page">-->
+<!--  <header>-->
+<!--    <nav>-->
+<!--      <ul>-->
+<!--      <li><a class="content" th:href="@{/board/list}">글 리스트</a></li>-->
+<!--      <li><a th:href="@{/board/write}">글 작성 </a></li>-->
+<!--      </ul>-->
+<!--    </nav>-->
+<!--  </header>-->
+<!--</div>-->
+
+<header>
+  <section class="hbody">
+    <article class="nav">
+      <div class="title"><a th:href="@{/board/list}">BRAND</a></div>
+      <ul id="menu">
+        <li><a th:href="@{/board/list}">Home</a></li>
+        <li><a class="content" th:href="@{/board/list}">작성된 글 리스트</a></li>
+        <li><a th:href="@{/board/write}">글 작성 </a></li>
+      </ul>
+      <i class="fab fa-twitter-square"></i>
+      <i class="fas fa-bars"></i>
+    </article>
+  </section>
+</header>
+
 <div class="layout">
  <table>
    <tr>
 <th>글 번호</th>
 <th>제목</th>
+     <th>작성자</th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
 <tr th:each="board : ${list}">
   <td th:text="${board.id}">1</td>
   <td>
     <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a></td>
+  <td th:text="${board.author}">작성자</td>
+
 </tr>
 </tr>
+
 </tbody>
 </table>
 
@@ -39,12 +66,17 @@
             th:text="${page}" style="color : red"></strong>
     <!-- 현 페이지와 누르려는 페이지가 같으면 href 작동이 안 되게 하는 if문-->
   </th:block>
+
   <!-- th:block은 굳이 tag로 감쌀 필요가 없는 태그를 th문법을 사용해 나타낼 때 사용 -->
   <form th:action="@{/board/list}" method="get" >
     <input type="text" name="searchKeyword">
     <button type="submit">검색</button>
   </form>
-</div>
 
+  <div>
+    <button type="button" class="navyBtn" onclick="location.href='write'">글 작성</button>
+  </div>
+
+</div>
 </body>
 </html>
