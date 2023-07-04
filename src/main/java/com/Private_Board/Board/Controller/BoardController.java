@@ -91,7 +91,6 @@ public class BoardController {
     public void download(HttpServletResponse response, Board board, @PathVariable("id") Integer id) throws Exception {
         Board boardTemp = boardService.boardview(id);
         String boardpath = boardTemp.getFilepath();
-        System.out.println(boardpath);
         try{
             String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/" + boardpath; // 저장경로 지정
 
@@ -114,12 +113,17 @@ public class BoardController {
 
     @PostMapping("board/update/{id}")
     public String boardupdate(
-            @PathVariable("id") Integer id, Board board, Model model, MultipartFile file)
+            @PathVariable("id") Integer id, Board board, Model model,
+    MultipartFile file)
     throws Exception{
 
         Board boardTemp = boardService.boardview(id);
         boardTemp.setTitle(board.getTitle());
         boardTemp.setContent(board.getContent());
+        if(!file.isEmpty()) {
+            boardTemp.setFilename(board.getFilename());
+            boardTemp.setFilepath(board.getFilepath());
+        }
 
         boardService.write(boardTemp, file);
 

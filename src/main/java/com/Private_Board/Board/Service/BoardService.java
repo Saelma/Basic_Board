@@ -18,21 +18,22 @@ public class BoardService{
     private BoardRepository boardRepository;
 
     public void write(Board board, MultipartFile file) throws Exception{
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files"; // 저장경로 지정
+        if(!file.isEmpty() ) {
+            String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files"; // 저장경로 지정
 
-        UUID uuid = UUID.randomUUID(); // 파일 이름에 붙일 랜덤 이름 지정
+            UUID uuid = UUID.randomUUID(); // 파일 이름에 붙일 랜덤 이름 지정
 
-        String filename = uuid + "_" + file.getOriginalFilename();
-        // 랜덤 이름을 파일네임앞에 _ 와 같이 붙이고 원래 이름을 더해 파일 생성
+            String filename = uuid + "_" + file.getOriginalFilename();
+            // 랜덤 이름을 파일네임앞에 _ 와 같이 붙이고 원래 이름을 더해 파일 생성
 
-        File saveFile = new File(projectPath, filename);
-        // 파일을 생성하며, projectPath에 저장하고, filename 이름으로 저장됨
+            File saveFile = new File(projectPath, filename);
+            // 파일을 생성하며, projectPath에 저장하고, filename 이름으로 저장됨
 
-        file.transferTo(saveFile); // 파일을 보내는 것이며, write 함수를 사용 시 예외처리가 필요해 throws 사용
+            file.transferTo(saveFile); // 파일을 보내는 것이며, write 함수를 사용 시 예외처리가 필요해 throws 사용
 
-        board.setFilename(filename);
-        board.setFilepath("files/" + filename);
-
+            board.setFilename(filename);
+            board.setFilepath("files/" + filename);
+        }
         // 여기까지 파일 저장 코드
         boardRepository.save(board);
     }
